@@ -1,0 +1,17 @@
+[
+  {
+    "name": "email",
+    "pattern": "[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}",
+    "replace": "[EMAIL]"
+  },
+  {
+    "name": "bearer_token",
+    "pattern": "Bearer\\s+[A-Za-z0-9._~+/=-]+",
+    "replace": "Bearer [TOKEN]"
+  },
+  {
+    "name": "phone",
+    "pattern": "\\+?\\d{2,3}[-. ]\\d{3,4}[-. ]\\d{4}",
+    "replace": "[PHONE]"
+  }
+]

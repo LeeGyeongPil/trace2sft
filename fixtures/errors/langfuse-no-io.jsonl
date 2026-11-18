@@ -1,0 +1,2 @@
+{"id":"obs-1","trace_id":"trace-1","type":"GENERATION","name":"llm","start_time":"2026-11-18T09:00:00Z"}
+{"id":"obs-2","trace_id":"trace-2","type":"GENERATION","name":"llm","start_time":"2026-11-18T09:01:00Z"}

@@ -1,0 +1,7 @@
+[
+  {
+    "name": "broken",
+    "pattern": "([a-z",
+    "replace": "x"
+  }
+]
