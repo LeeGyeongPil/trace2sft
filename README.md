@@ -183,7 +183,7 @@ console.log(`kept=${report.kept} dropped=${report.dropped_total}`);
 
 ## Configuration
 
-- **Language**: `--lang en|ko`, then the `TRACE2SFT_LANG` environment variable, then `LC_ALL` / `LC_MESSAGES` / `LANG`. Anything that is not Korean falls back to English. The terminal output and `report.md` follow it.
+- **Language**: `--lang en|ko`, then the `TRACE2SFT_LANG` environment variable, then `LC_ALL` / `LC_MESSAGES` / `LANG`. Anything that is not Korean falls back to English. The terminal output, argument errors and `report.md` follow it.
 - **Masking rules** (`--mask`): a JSON array. Example:
 
 ```json

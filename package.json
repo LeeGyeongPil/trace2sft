@@ -1,6 +1,6 @@
 {
   "name": "trace2sft",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Turn Langfuse, LangSmith and OpenTelemetry GenAI exports into validated fine-tuning chat JSONL with a per-reason drop report.",
   "type": "module",
   "license": "MIT",

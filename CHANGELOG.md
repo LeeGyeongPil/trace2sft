@@ -4,6 +4,11 @@ All notable changes to this project are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project uses
 [Semantic Versioning](https://semver.org/).
 
+## [0.1.1] - 2026-11-19
+
+### Fixed
+- Argument errors (unknown option, ambiguous value such as `--max-chars -5`) now follow `--lang` over the environment locale and no longer end with a doubled period.
+
 ## [0.1.0] - 2026-11-18
 
 ### Added

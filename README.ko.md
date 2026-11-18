@@ -183,7 +183,7 @@ console.log(`kept=${report.kept} dropped=${report.dropped_total}`);
 
 ## 설정
 
-- **언어**: `--lang en|ko`, 그다음 환경 변수 `TRACE2SFT_LANG`, 그다음 `LC_ALL` / `LC_MESSAGES` / `LANG`. 한국어가 아니면 영어입니다. 터미널 출력과 `report.md` 가 따릅니다.
+- **언어**: `--lang en|ko`, 그다음 환경 변수 `TRACE2SFT_LANG`, 그다음 `LC_ALL` / `LC_MESSAGES` / `LANG`. 한국어가 아니면 영어입니다. 터미널 출력, 인자 오류 메시지, `report.md` 가 따릅니다.
 - **마스킹 규칙**(`--mask`): JSON 배열입니다. 예:
 
 ```json
