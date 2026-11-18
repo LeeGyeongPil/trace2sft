@@ -93,3 +93,27 @@ test('missing mask file and truncated .json report the real problem', () => {
   assert.match(r.stderr, /E_INPUT_PARSE.*trunc\.json: not valid JSON/);
   assert.doesNotMatch(r.stderr, /Each line/);
 });
+
+test('parseArgs errors follow --lang over the environment', () => {
+  const ko = { LANG: 'ko_KR.UTF-8' };
+  const en = { LANG: 'en_US.UTF-8' };
+  let r = run(['convert', 'x.jsonl', '--bogus', '--lang', 'en'], ko);
+  assert.equal(r.code, 2);
+  assert.match(r.stderr, /^error \[E_USAGE\]: Unknown option '--bogus'/);
+  assert.match(r.stderr, /Run trace2sft --help\.\n$/);
+
+  r = run(['convert', 'x.jsonl', '--max-chars', '-5', '--lang=en'], ko);
+  assert.equal(r.code, 2);
+  assert.match(r.stderr, /^error \[E_USAGE\]: Option '--max-chars' argument is ambiguous/);
+  assert.doesNotMatch(r.stderr, /\.\./);
+  assert.match(r.stderr, /Run trace2sft --help\.\n$/);
+
+  r = run(['convert', 'x.jsonl', '--bogus', '--lang', 'ko'], en);
+  assert.equal(r.code, 2);
+  assert.match(r.stderr, /^오류 \[E_USAGE\]: /);
+  assert.match(r.stderr, /trace2sft --help 를 실행해 보세요\.\n$/);
+
+  // Without --lang the environment still decides.
+  r = run(['convert', 'x.jsonl', '--bogus'], ko);
+  assert.match(r.stderr, /^오류 /);
+});

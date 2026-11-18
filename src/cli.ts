@@ -140,17 +140,31 @@ async function run(argv: string[], env: NodeJS.ProcessEnv, out: (s: string) => v
   return 0;
 }
 
+/** Read a valid `--lang en|ko` / `--lang=en|ko` from argv without parseArgs (last wins, stops at a bare `--`). */
+function peekLang(argv: string[]): string | undefined {
+  let found: string | undefined;
+  for (let i = 0; i < argv.length; i++) {
+    const a = argv[i] as string;
+    if (a === '--') break;
+    const v = a === '--lang' ? argv[i + 1] : a.startsWith('--lang=') ? a.slice('--lang='.length) : undefined;
+    if (v === 'en' || v === 'ko') found = v;
+  }
+  return found;
+}
+
 async function main(): Promise<void> {
-  const lang = { current: resolveLang(undefined, process.env) };
+  const args = process.argv.slice(2);
+  // Resolve the language before parseArgs so parse errors also follow --lang.
+  const lang = { current: resolveLang(peekLang(args), process.env) };
   try {
-    process.exitCode = await run(process.argv.slice(2), process.env, (s) => process.stdout.write(s), lang);
+    process.exitCode = await run(args, process.env, (s) => process.stdout.write(s), lang);
   } catch (e) {
     const prefix = t(lang.current, 'err.prefix');
     if (e instanceof Trace2SftError) {
       const key = typeof e.params.key === 'string' ? e.params.key : `err.${e.code}`;
       process.stderr.write(`${prefix} [${e.code}]: ${t(lang.current, key, e.params)}\n`);
     } else if (e instanceof TypeError && (e as NodeJS.ErrnoException).code?.startsWith('ERR_PARSE_ARGS')) {
-      process.stderr.write(`${prefix} [E_USAGE]: ${t(lang.current, 'usage.parse', { detail: e.message })}\n`);
+      process.stderr.write(`${prefix} [E_USAGE]: ${t(lang.current, 'usage.parse', { detail: e.message.replace(/\.$/, '') })}\n`);
     } else {
       process.stderr.write(`${prefix}: ${(e as Error).stack ?? String(e)}\n`);
     }
