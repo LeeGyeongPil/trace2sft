@@ -1,0 +1,56 @@
+{
+  "name": "trace2sft",
+  "version": "0.1.0",
+  "description": "Turn Langfuse, LangSmith and OpenTelemetry GenAI exports into validated fine-tuning chat JSONL with a per-reason drop report.",
+  "type": "module",
+  "license": "MIT",
+  "bin": {
+    "trace2sft": "dist/cli.js"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LeeGyeongPil/trace2sft.git"
+  },
+  "keywords": [
+    "llm",
+    "fine-tuning",
+    "sft",
+    "langfuse",
+    "langsmith",
+    "opentelemetry",
+    "genai",
+    "dataset",
+    "jsonl"
+  ],
+  "scripts": {
+    "build": "tsc -p . && node scripts/copy-demo.mjs",
+    "test": "npm run build && node --test \"test/*.test.mjs\"",
+    "start": "node dist/cli.js demo",
+    "prepare": "npm run build",
+    "gen:otlp": "node scripts/gen-otlp-fixture.cjs"
+  },
+  "devDependencies": {
+    "@opentelemetry/api": "^1.10.0",
+    "@opentelemetry/otlp-transformer": "^0.301.2",
+    "@opentelemetry/resources": "^3.1.1",
+    "@opentelemetry/sdk-trace": "^3.1.1",
+    "@opentelemetry/semantic-conventions": "^1.45.0",
+    "@types/node": "^26.6.6",
+    "typescript": "^7.0.2"
+  }
+}
